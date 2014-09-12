@@ -13,7 +13,7 @@ function serve(root, servePath) {
     if(!rootStat.isDirectory()) throw Error('Root should be a directory.');
     if(!fs.realpathSync(root)) throw Error('Root must be a valid path.');
 
-    var finalFiles = walk(root);
+    var finalFiles = walk(root, null, root);
 
     if (typeof servePath === 'undefined') {
         servePath = root;
@@ -22,7 +22,9 @@ function serve(root, servePath) {
     return function * staticFolder(next){
         var convertedPath = this.path.slice(1).split("/");
         if (convertedPath[0] == servePath) {
+
             var file = finalFiles[convertedPath.slice(1).join('/')];
+
             if (file) {
                 return yield send(this, file, {root: __dirname});
             }
@@ -32,7 +34,7 @@ function serve(root, servePath) {
     }
 }
 
-function walk(directory, finalFiles) {
+function walk(directory, finalFiles, root) {
     finalFiles = finalFiles || [];
     var files = fs.readdirSync(directory);
     for(var i=0; i<files.length; i++) {
@@ -43,7 +45,7 @@ function walk(directory, finalFiles) {
             walk(file, finalFiles);
         }
         else {
-            finalFiles[path.join.apply(this, file.split(path.sep).slice(1))] = file;
+            finalFiles[path.relative(root, file)] = file;
         }
     }
     return finalFiles;
