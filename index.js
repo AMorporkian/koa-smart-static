@@ -15,25 +15,19 @@ function serve(root, servePath) {
 
     var finalFiles = walk(root);
 
-    if (!servePath) {
+    if (typeof servePath === 'undefined') {
         servePath = root;
     }
 
     return function * staticFolder(next){
-        console.log(servePath);
         var convertedPath = this.path.slice(1).split("/");
         if (convertedPath[0] == servePath) {
             var file = finalFiles[convertedPath.slice(1).join('/')];
-            console.log(file);
-            console.log(convertedPath.slice(1).join('/'));
-            console.log(__dirname);
             if (file) {
                 return yield send(this, file, {root: __dirname});
             }
         }
 
-        console.log(finalFiles);
-        console.log(finalPath);
         yield * next;
     }
 }
