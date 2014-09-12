@@ -1,6 +1,6 @@
 {
   "name": "koa-smart-static",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Serves static folders using dynamic names.",
   "main": "index.js",
   "scripts": {
