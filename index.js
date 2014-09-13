@@ -42,7 +42,7 @@ function walk(directory, finalFiles, root) {
         if(!file) continue;
         file = path.join(directory, file);
         if(fs.statSync(file).isDirectory()) {
-            walk(file, finalFiles);
+            walk(file, finalFiles, root);
         }
         else {
             finalFiles[path.relative(root, file)] = file;
