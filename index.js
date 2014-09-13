@@ -10,9 +10,9 @@ function serve(root, servePath) {
             try {
                 return yield send(this, convertedPath.slice(1).join('/'), {root: root});
             } catch (err) {
-                yield * next;
             }
         }
+        yield * next;
     }
 }
 
