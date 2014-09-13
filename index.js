@@ -1,9 +1,6 @@
 var send = require('koa-send'),
     fs = require('fs'),
-    path = require('path'),
-    thunkify = require('thunkify');
-
-var exists = thunkify(fs.exists);
+    path = require('path');
 
 function serve(root, servePath) {
     return function * staticFolder(next){
