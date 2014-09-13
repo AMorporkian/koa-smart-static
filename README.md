@@ -1,6 +1,6 @@
-Middleware for Koa to server a folder (and any subsequent subfolders/files) under a name declared by the user.
+Middleware for Koa to serve a folder (and any subsequent subfolders/files) under a name declared by the user.
 
-Syntax: `app.use(server(relativePath, nameToServeUnder))`
+Syntax: `app.use(serve(relativePath, nameToServeUnder))`
 
 ## Example
 ```
