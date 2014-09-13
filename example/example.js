@@ -1,4 +1,4 @@
-var serve = require("./"),
+var serve = require("../"),
     koa = require('koa');
 var app = koa();
 
