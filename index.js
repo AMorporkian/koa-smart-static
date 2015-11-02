@@ -8,7 +8,14 @@ function serve(root, servePath) {
 
         if (convertedPath[0] == servePath) {
             try {
-                return yield send(this, convertedPath.slice(1).join('/'), {root: root});
+                var path = convertedPath.slice(1).join('/');
+                //if path is empty string - we're going to the root
+                if (path === '') {
+                    path = '/';
+                }
+
+                return yield send(this, path, {root: root});
+
             } catch (err) {
             }
         }
