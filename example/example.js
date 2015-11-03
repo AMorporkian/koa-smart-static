@@ -2,7 +2,7 @@ var serve = require("../"),
     koa = require('koa');
 var app = koa();
 
-app.use(serve('./example', 'test'));  // Path of folder, path you want to serve under.
+app.use(serve('./example', 'test', { index: 'root.html' }));  // Path of folder, path you want to serve under.
 
 app.use(function *(next) {
     if (this.path == '/') {

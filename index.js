@@ -2,7 +2,8 @@ var send = require('koa-send'),
     fs = require('fs'),
     path = require('path');
 
-function serve(root, servePath) {
+function serve(root, servePath, options) {
+    options = options || {};
     return function * staticFolder(next){
         var convertedPath = this.path.slice(1).split("/");
 
@@ -14,8 +15,12 @@ function serve(root, servePath) {
                     path = '/';
                 }
 
-                return yield send(this, path, {root: root});
+                var opts = {
+                    root: root,
+                    index: options.index || 'index.html'
+                };
 
+                return yield send(this, path, opts);
             } catch (err) {
             }
         }
